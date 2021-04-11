@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="24dp"
+    >
+
+    <ImageView
+        android:id="@+id/repoIconIV"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/default_repo_img"
+        android:contentDescription="@string/github_repo_image" />
+    <TextView
+        android:id="@+id/repoHeaderTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cli cli"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintStart_toEndOf="@+id/repoIconIV"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAppearance="@style/heading_16"
+         />
+
+    <TextView
+        android:id="@+id/repoDescriptionTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/repoIconIV"
+        app:layout_constraintTop_toBottomOf="@+id/repoHeaderTV"
+        android:text="InstantInstantInstantInstantInstantInstantInstant and elegant Markdown documents in th..."
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textAppearance="@style/text_light_14"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

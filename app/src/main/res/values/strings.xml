@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">SampleGithub</string>
     <string name="logo">logo</string>
+    <string name="repository_library">Repository library</string>
+    <string name="search_for_repository">Search for repository</string>
+    <string name="github_repo_image">Github repo image</string>
 </resources>

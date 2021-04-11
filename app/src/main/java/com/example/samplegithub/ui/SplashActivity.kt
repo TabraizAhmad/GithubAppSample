@@ -1,5 +1,6 @@
 package com.example.samplegithub.ui
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,7 +10,7 @@ import com.example.samplegithub.MainActivity
 import com.example.samplegithub.R
 import com.example.samplegithub.utlis.Constants.SPLASH_DELAY
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)

@@ -5,16 +5,60 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.SearchRepoFragment">
+    android:paddingStart="20dp"
+    tools:context=".ui.main.SearchRepoFragment"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingEnd="20dp"
+    >
 
     <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MainFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/repositoryHeadingTV"
+        android:layout_width="166dp"
+        android:layout_height="24dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="34dp"
+        android:text="@string/repository_library"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginVertical="30dp"
+        android:textAppearance="@style/heading_20"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/searchQueryET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/repositoryHeadingTV"
+        android:background="@drawable/ic_rectangule_grey_bg"
+        android:layout_marginTop="20dp"
+        android:drawableStart="@drawable/ic_search_icon"
+        android:drawableLeft="@drawable/ic_search_icon"
+        android:drawablePadding="15dp"
+        android:hint="@string/search_for_repository"
+        android:paddingStart="15dp"
+        android:paddingLeft="15dp" />
+
+    <TextView
+        android:id="@+id/resultSizeIndTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:text="2 Results"
+        android:textAppearance="@style/text_light_14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchQueryET"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchedReopListRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resultSizeIndTV"
+        android:layout_marginTop="20dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
