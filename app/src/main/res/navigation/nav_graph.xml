@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/searchRepoFragment"
         android:name="com.example.samplegithub.ui.main.SearchRepoFragment"
-        android:label="search_repo_fragment"
         tools:layout="@layout/search_repo_fragment" >
         <action
             android:id="@+id/action_searchRepoFragment_to_repoDetailFragment"
@@ -17,6 +16,9 @@
     <fragment
         android:id="@+id/repoDetailFragment"
         android:name="com.example.samplegithub.ui.main.RepoDetailFragment"
-        android:label="repo_detail_fragment"
-        tools:layout="@layout/repo_detail_fragment" />
+        tools:layout="@layout/repo_detail_fragment" >
+        <argument
+            android:name="repositoryInfo"
+            app:argType="com.example.samplegithub.network.model.GithubRepoItem" />
+    </fragment>
 </navigation>

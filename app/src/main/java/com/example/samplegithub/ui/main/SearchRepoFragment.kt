@@ -1,14 +1,12 @@
 package com.example.samplegithub.ui.main
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.samplegithub.databinding.SearchRepoFragmentBinding
@@ -33,7 +31,7 @@ class SearchRepoFragment : Fragment(), RepoRVAdapter.OnItemClicked {
 
     // Use the 'by viewModels()' Kotlin property delegate
     // from the activity-ktx artifact
-    private val viewModel: GithubRepositoryViewModel by viewModels()
+    private val viewModel: SearchRepoViewModel by viewModels()
 
     //binding for searching views
     private lateinit var binding: SearchRepoFragmentBinding
@@ -44,8 +42,8 @@ class SearchRepoFragment : Fragment(), RepoRVAdapter.OnItemClicked {
     lateinit var connectivityLiveData: ConnectivityLiveData
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
 
         binding = SearchRepoFragmentBinding.inflate(inflater)
@@ -57,57 +55,53 @@ class SearchRepoFragment : Fragment(), RepoRVAdapter.OnItemClicked {
         super.onViewCreated(view, savedInstanceState)
         initializeWatcher()
         initializeRV()
+        observeResponse()
     }
 
     private fun initializeRV() {
 
         binding.searchedReopListRV.layoutManager = LinearLayoutManager(
-                context, RecyclerView.VERTICAL, false)
-        repoRVAdapter = RepoRVAdapter(repoItems,context, this)
+            context, RecyclerView.VERTICAL, false
+        )
+        repoRVAdapter = RepoRVAdapter(repoItems, context, this)
         binding.searchedReopListRV.adapter = repoRVAdapter
 
     }
 
     private fun initializeWatcher() {
         binding.searchQueryET.addTextChangedListener(
-                DebouncingTextChangeListener(viewLifecycleOwner.lifecycle) { queryText ->
-                    queryText?.apply {
-                        if(length >= 3)
-                            callApiForSearch(this)
-                    }
+            DebouncingTextChangeListener(viewLifecycleOwner.lifecycle) { queryText ->
+                queryText?.apply {
+                    if (length >= 3)
+                        viewModel.setKeyword(this)
                 }
+            }
         )
     }
 
-    private fun callApiForSearch(text:String) {
-        connectivityLiveData.observe(viewLifecycleOwner, { isAvailable ->
+    private fun observeResponse() {
+        viewModel.searchApiResponseLD.observe(viewLifecycleOwner, { resource ->
+            when (resource) {
+                is Resource.Error -> {
 
-            if(isAvailable){
-                viewModel.getSearchApiResponse(text).observe(viewLifecycleOwner,{ resource->
-                    when (resource) {
-                        is Resource.Error -> {
+                }
+                is Resource.Success -> {
+                    repoRVAdapter.setRepoList(resource.data?.items)
 
-                        }
-                        is Resource.Success -> {
-                            repoRVAdapter.setRepoList(resource.data?.items)
+                }
+                is Resource.Loading -> {
 
-                        }
-                        is Resource.Loading ->{
-
-                        }
-                    }
-                })
+                }
             }
         })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-    }
-
     override fun onItemClicked(view: View, repoItem: GithubRepoItem) {
         //move to detail adapter
+        val action = SearchRepoFragmentDirections.actionSearchRepoFragmentToRepoDetailFragment(
+            repoItem
+        )
+        view.findNavController().navigate(action)
     }
 
 }

@@ -1,5 +1,9 @@
 package com.example.samplegithub.network.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Owner(
     val avatar_url: String,
     val events_url: String,
@@ -19,4 +23,4 @@ data class Owner(
     val subscriptions_url: String,
     val type: String,
     val url: String
-)
+) : Parcelable

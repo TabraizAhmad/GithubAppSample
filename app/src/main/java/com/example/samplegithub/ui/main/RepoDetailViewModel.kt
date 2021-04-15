@@ -9,7 +9,7 @@ import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
-class GithubRepositoryViewModel @Inject constructor(private val githubRepository: GithubRepository): ViewModel() {
+class RepoDetailViewModel @Inject constructor(private val githubRepository: GithubRepository): ViewModel() {
     private var searchApiResponseLD: MutableLiveData<Resource<GithubRepositoryInfo>> = MutableLiveData()
     var searchJob: Job? = null
 

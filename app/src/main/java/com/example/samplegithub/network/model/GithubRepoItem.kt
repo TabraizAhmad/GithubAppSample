@@ -1,5 +1,9 @@
 package com.example.samplegithub.network.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class GithubRepoItem(
     val archive_url: String,
     val archived: Boolean,
@@ -45,10 +49,8 @@ data class GithubRepoItem(
     val labels_url: String,
     val language: String,
     val languages_url: String,
-    val license: Any,
     val merges_url: String,
     val milestones_url: String,
-    val mirror_url: Any,
     val name: String,
     val node_id: String,
     val notifications_url: String,
@@ -75,4 +77,4 @@ data class GithubRepoItem(
     val url: String,
     val watchers: Int,
     val watchers_count: Int
-)
+) : Parcelable
