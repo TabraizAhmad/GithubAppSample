@@ -10,9 +10,7 @@ import com.example.samplegithub.R
 
 class RepoDetailFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = RepoDetailFragment()
-    }
+
 
     private lateinit var viewModel: GithubRepositoryViewModel
 

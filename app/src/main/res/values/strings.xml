@@ -4,4 +4,9 @@
     <string name="repository_library">Repository library</string>
     <string name="search_for_repository">Search for repository</string>
     <string name="github_repo_image">Github repo image</string>
+    <string name="repository_owner_pp">repository owner pp</string>
+    <string name="forks">Forks</string>
+    <string name="issues">Issues</string>
+    <string name="starred_by">Starred by</string>
+    <string name="last_release_version">Last Release version</string>
 </resources>

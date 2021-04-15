@@ -7,14 +7,172 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.RepoDetailFragment">
 
+
+    <ImageView
+        android:id="@+id/repoImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/default_repo_img"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/repository_owner_pp" />
+
     <TextView
-        android:id="@+id/message"
+        android:id="@+id/repoHeaderTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MainFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Cli cli"
+        android:layout_marginTop="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/repoImage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAppearance="@style/heading_16"
+        />
+
+    <TextView
+        android:id="@+id/repoLanguageTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/repoHeaderTV"
+        android:textAppearance="@style/text_light_14"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/repoLanguageTV"
+        android:background="@drawable/shape_rectangular"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:id="@+id/forkRL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            >
+            <TextView
+                android:id="@+id/forkTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forks"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:textAppearance="@style/text_black_14"
+                />
+            <TextView
+                android:id="@+id/forkCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="255"
+                android:textAppearance="@style/heading_14"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="#E6E6E6"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            />
+
+        <RelativeLayout
+            android:id="@+id/issuesRL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            >
+            <TextView
+                android:id="@+id/issueTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/issues"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:textAppearance="@style/text_black_14"
+                />
+            <TextView
+                android:id="@+id/issueCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="266"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="#E6E6E6"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            />
+
+        <RelativeLayout
+            android:id="@+id/starredRL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            >
+            <TextView
+                android:id="@+id/starredTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/starred_by"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:textAppearance="@style/text_black_14"
+                />
+            <TextView
+                android:id="@+id/starredCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="26"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="#E6E6E6"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            />
+
+        <RelativeLayout
+            android:id="@+id/latestReleaseRL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            >
+            <TextView
+                android:id="@+id/latestReleaseTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/last_release_version"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:textAppearance="@style/text_black_14"
+                />
+            <TextView
+                android:id="@+id/latestReleaseTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="26"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

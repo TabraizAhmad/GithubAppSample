@@ -1,6 +1,6 @@
 package com.example.samplegithub.network.model
 
-data class Item(
+data class GithubRepoItem(
     val archive_url: String,
     val archived: Boolean,
     val assignees_url: String,
