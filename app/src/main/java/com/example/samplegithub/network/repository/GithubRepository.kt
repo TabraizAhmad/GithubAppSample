@@ -1,6 +1,7 @@
 package com.example.samplegithub.network.repository
 
 import com.example.samplegithub.network.model.GithubRepositoryInfo
+import com.example.samplegithub.network.model.RepoReleaseInfo
 import com.example.samplegithub.network.model.Resource
 import com.example.samplegithub.network.remote.GithubApiService
 import retrofit2.http.Query
@@ -14,11 +15,31 @@ class GithubRepository @Inject constructor(private val apiService: GithubApiServ
 
 
     suspend fun searchGithubRepositories(keyword: String,page: Int?,resultsPerPage: Int?): Resource<GithubRepositoryInfo>{
-        val response = apiService.searchGithubRepositories(keyword, page, resultsPerPage)
-        return  if(response.isSuccessful){
+        return try {
+            val response = apiService.searchGithubRepositories(keyword, page, resultsPerPage)
+            if(response.isSuccessful){
                 Resource.Success(response.body())
-        }else{
-            Resource.Error(Exception(response.message()))
+            }else{
+                Resource.Error(Exception(response.message()))
+            }
+        }catch (e:Exception){
+            Resource.Error(Exception(e.message))
+        }
+
+    }
+
+    suspend fun getLatestRelease(releaseURL: String): Resource<RepoReleaseInfo>{
+        return try {
+            val response = apiService.getLatestRelease(releaseURL)
+            if(response.isSuccessful){
+                Resource.Success(response.body())
+            }else{
+                Resource.Error(Exception(response.message()))
+            }
+        }catch (e:Exception){
+            Resource.Error(Exception(e.message))
         }
     }
+
+
 }

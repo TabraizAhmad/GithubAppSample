@@ -5,16 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.samplegithub.R
 import com.example.samplegithub.databinding.RepoDetailFragmentBinding
+import com.example.samplegithub.network.model.Resource
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.WithFragmentBindings
 
+@WithFragmentBindings
+@AndroidEntryPoint
 class RepoDetailFragment : Fragment() {
 
 
 
-    private lateinit var viewModel: SearchRepoViewModel
+    private val viewModel: RepoDetailViewModel by viewModels()
 
     private val args: RepoDetailFragmentArgs by navArgs()
 
@@ -41,16 +47,20 @@ class RepoDetailFragment : Fragment() {
                     .placeholder(R.drawable.default_repo_img)
                     .into(binding.repoImage)
             }
-
+            fetchReleaseInfo(releases_url.replace("{/id}","/latest"))
         }
 
 
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(GithubRepositoryViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+    private fun fetchReleaseInfo(releasesUrl: String) {
 
+        viewModel.getLatestRelease(releasesUrl).observe(viewLifecycleOwner,{ resource->
+            when (resource) {
+                is Resource.Success -> {
+                    binding.latestReleaseTV.text = resource.data?.tag_name
+                }
+            }
+        })
+    }
 }

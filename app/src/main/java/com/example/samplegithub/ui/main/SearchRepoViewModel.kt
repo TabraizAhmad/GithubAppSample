@@ -21,10 +21,9 @@ class SearchRepoViewModel @Inject constructor(private val githubRepository: Gith
             getSearchApiResponse(keyword)
         }
 
-
-
     fun getSearchApiResponse(keyword:String, page:Int? = null, resultsPerPage:Int? = null): LiveData<Resource<GithubRepositoryInfo>> {
         return liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
+            emit(Resource.Loading())
             emit(githubRepository.searchGithubRepositories(keyword, page,resultsPerPage ))
         }
     }

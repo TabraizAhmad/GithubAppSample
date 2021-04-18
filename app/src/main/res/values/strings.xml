@@ -8,5 +8,7 @@
     <string name="forks">Forks</string>
     <string name="issues">Issues</string>
     <string name="starred_by">Starred by</string>
+    <string name="results">%1$d results</string>
+
     <string name="last_release_version">Last Release version</string>
 </resources>

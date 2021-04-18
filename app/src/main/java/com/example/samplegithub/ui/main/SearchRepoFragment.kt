@@ -9,7 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.samplegithub.R
 import com.example.samplegithub.databinding.SearchRepoFragmentBinding
+import com.example.samplegithub.extension.makeGone
+import com.example.samplegithub.extension.makeVisible
 import com.example.samplegithub.network.model.GithubRepoItem
 import com.example.samplegithub.network.model.Resource
 import com.example.samplegithub.ui.`interface`.DebouncingTextChangeListener
@@ -83,13 +86,27 @@ class SearchRepoFragment : Fragment(), RepoRVAdapter.OnItemClicked {
         viewModel.searchApiResponseLD.observe(viewLifecycleOwner, { resource ->
             when (resource) {
                 is Resource.Error -> {
+                    binding.progressBar.makeGone()
+                    binding.searchedReopListRV.makeGone()
+                    binding.resultSizeIndTV.makeGone()
+                    binding.errorTextView.makeVisible()
+                    binding.errorTextView.text = resource.exception.message
 
                 }
                 is Resource.Success -> {
+                    binding.progressBar.makeGone()
+                    binding.errorTextView.makeGone()
+                    binding.resultSizeIndTV.makeVisible()
+                    binding.searchedReopListRV.makeVisible()
                     repoRVAdapter.setRepoList(resource.data?.items)
-
+                    binding.resultSizeIndTV.text =  getString(R.string.results, resource.data?.total_count)
                 }
                 is Resource.Loading -> {
+                    binding.progressBar.makeVisible()
+                    /*binding.errorTextView.makeGone()
+                    binding.searchedReopListRV.makeGone()
+                    binding.resultSizeIndTV.makeGone()*/
+
 
                 }
             }
