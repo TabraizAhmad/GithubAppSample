@@ -13,5 +13,4 @@ data class GithubRepoItem(
     val forks_count: Int,
     val open_issues_count: Int,
     val stargazers_count: Int,
-    val releases_url: String
-    ) : Parcelable
+    val releases_url: String) : Parcelable

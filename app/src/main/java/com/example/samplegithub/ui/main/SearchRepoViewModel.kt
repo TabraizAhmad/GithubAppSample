@@ -14,19 +14,24 @@ class SearchRepoViewModel @Inject constructor(private val githubRepository: Gith
 
     private val keywordMutableLiveData:MutableLiveData<String> = MutableLiveData()
 
+
     fun setKeyword(keyword:String){
         keywordMutableLiveData.value = keyword
     }
+
     var searchApiResponseLD =
         Transformations.switchMap(keywordMutableLiveData) { keyword ->
-            //getSearchApiResponse(keyword)
             githubRepository.getSearchResults(keyword).cachedIn(viewModelScope)
         }
 
-    fun getSearchApiResponse(keyword:String, page:Int? = null, resultsPerPage:Int? = null): LiveData<Resource<GithubRepositoryInfo>> {
+    var totalCountLD =
+        Transformations.switchMap(keywordMutableLiveData) { keyword ->
+            //todo find way to pass meta data in paging library
+             getTotalCount(keyword)
+        }
+    fun getTotalCount(keyword:String, page:Int? = 1, resultsPerPage:Int? = 1): LiveData<Resource<Int>> {
         return liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            emit(Resource.Loading())
-            emit(githubRepository.searchGithubRepositories(keyword, page,resultsPerPage ))
+            emit(githubRepository.getTotalCount(keyword, page,resultsPerPage ))
         }
     }
 }

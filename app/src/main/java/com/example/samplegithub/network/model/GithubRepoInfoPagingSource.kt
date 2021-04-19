@@ -17,9 +17,11 @@ class GithubRepoInfoPagingSource(
         return try {
             val response = apiService.searchGithubRepositories(query, position, params.loadSize)
             var repoItems:List<GithubRepoItem> = ArrayList()
+
             response.body()?.items?.let { list->
                 repoItems = list
             }
+
             LoadResult.Page(
                 data = repoItems,
                 prevKey = if (position == STARTING_PAGE_INDEX) null else position - 1,
@@ -32,4 +34,5 @@ class GithubRepoInfoPagingSource(
         }
 
     }
+
 }

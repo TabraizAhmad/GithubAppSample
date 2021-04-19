@@ -18,11 +18,11 @@ class GithubRepository @Inject constructor(private val apiService: GithubApiServ
 
 
 
-    suspend fun searchGithubRepositories(keyword: String,page: Int?,resultsPerPage: Int?): Resource<GithubRepositoryInfo>{
+    suspend fun getTotalCount(keyword: String, page: Int?, resultsPerPage: Int?): Resource<Int>{
         return try {
             val response = apiService.searchGithubRepositories(keyword, page, resultsPerPage)
             if(response.isSuccessful){
-                Resource.Success(response.body())
+                Resource.Success(response.body()?.total_count)
             }else{
                 Resource.Error(Exception(response.message()))
             }
