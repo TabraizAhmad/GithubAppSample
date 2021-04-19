@@ -1,6 +1,7 @@
 package com.example.samplegithub.ui.main
 
 import androidx.lifecycle.*
+import androidx.paging.cachedIn
 import com.example.samplegithub.network.model.GithubRepositoryInfo
 import com.example.samplegithub.network.model.Resource
 import com.example.samplegithub.network.repository.GithubRepository
@@ -16,9 +17,10 @@ class SearchRepoViewModel @Inject constructor(private val githubRepository: Gith
     fun setKeyword(keyword:String){
         keywordMutableLiveData.value = keyword
     }
-    var searchApiResponseLD: LiveData<Resource<GithubRepositoryInfo>> =
+    var searchApiResponseLD =
         Transformations.switchMap(keywordMutableLiveData) { keyword ->
-            getSearchApiResponse(keyword)
+            //getSearchApiResponse(keyword)
+            githubRepository.getSearchResults(keyword).cachedIn(viewModelScope)
         }
 
     fun getSearchApiResponse(keyword:String, page:Int? = null, resultsPerPage:Int? = null): LiveData<Resource<GithubRepositoryInfo>> {
@@ -27,5 +29,4 @@ class SearchRepoViewModel @Inject constructor(private val githubRepository: Gith
             emit(githubRepository.searchGithubRepositories(keyword, page,resultsPerPage ))
         }
     }
-
 }

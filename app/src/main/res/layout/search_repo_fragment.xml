@@ -53,14 +53,27 @@
         app:layout_constraintTop_toBottomOf="@id/searchQueryET"
         android:visibility="gone"
         />
-    <androidx.recyclerview.widget.RecyclerView
+    <!--<androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchedReopListRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resultSizeIndTV"
         android:layout_marginTop="20dp"
+        />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchedReopListRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/repo_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resultSizeIndTV"
+        android:layout_marginTop="20dp"
+
         />
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"

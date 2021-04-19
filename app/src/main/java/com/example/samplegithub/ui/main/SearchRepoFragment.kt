@@ -16,7 +16,6 @@ import com.example.samplegithub.extension.makeVisible
 import com.example.samplegithub.network.model.GithubRepoItem
 import com.example.samplegithub.network.model.Resource
 import com.example.samplegithub.ui.`interface`.DebouncingTextChangeListener
-import com.example.samplegithub.ui.adapter.RepoRVAdapter
 import com.example.samplegithub.utlis.ConnectivityLiveData
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
@@ -28,9 +27,7 @@ import javax.inject.Inject
 class SearchRepoFragment : Fragment(), RepoRVAdapter.OnItemClicked {
 
 
-    private lateinit var repoRVAdapter:RepoRVAdapter
 
-    private var repoItems = ArrayList<GithubRepoItem>()
 
     // Use the 'by viewModels()' Kotlin property delegate
     // from the activity-ktx artifact
@@ -63,11 +60,15 @@ class SearchRepoFragment : Fragment(), RepoRVAdapter.OnItemClicked {
 
     private fun initializeRV() {
 
-        binding.searchedReopListRV.layoutManager = LinearLayoutManager(
-            context, RecyclerView.VERTICAL, false
-        )
-        repoRVAdapter = RepoRVAdapter(repoItems, context, this)
-        binding.searchedReopListRV.adapter = repoRVAdapter
+
+        val repoRVAdapter = RepoRVAdapter(this  )
+        binding.apply {
+
+            searchedReopListRV.adapter = repoRVAdapter
+            viewModel.searchApiResponseLD.observe(viewLifecycleOwner, { resource ->
+                repoRVAdapter.submitData(viewLifecycleOwner.lifecycle, resource)
+            })
+        }
 
     }
 
@@ -83,34 +84,7 @@ class SearchRepoFragment : Fragment(), RepoRVAdapter.OnItemClicked {
     }
 
     private fun observeResponse() {
-        viewModel.searchApiResponseLD.observe(viewLifecycleOwner, { resource ->
-            when (resource) {
-                is Resource.Error -> {
-                    binding.progressBar.makeGone()
-                    binding.searchedReopListRV.makeGone()
-                    binding.resultSizeIndTV.makeGone()
-                    binding.errorTextView.makeVisible()
-                    binding.errorTextView.text = resource.exception.message
 
-                }
-                is Resource.Success -> {
-                    binding.progressBar.makeGone()
-                    binding.errorTextView.makeGone()
-                    binding.resultSizeIndTV.makeVisible()
-                    binding.searchedReopListRV.makeVisible()
-                    repoRVAdapter.setRepoList(resource.data?.items)
-                    binding.resultSizeIndTV.text =  getString(R.string.results, resource.data?.total_count)
-                }
-                is Resource.Loading -> {
-                    binding.progressBar.makeVisible()
-                    /*binding.errorTextView.makeGone()
-                    binding.searchedReopListRV.makeGone()
-                    binding.resultSizeIndTV.makeGone()*/
-
-
-                }
-            }
-        })
     }
 
     override fun onItemClicked(view: View, repoItem: GithubRepoItem) {

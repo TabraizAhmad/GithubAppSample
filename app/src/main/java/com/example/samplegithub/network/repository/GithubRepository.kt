@@ -1,5 +1,9 @@
 package com.example.samplegithub.network.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.liveData
+import com.example.samplegithub.network.model.GithubRepoInfoPagingSource
 import com.example.samplegithub.network.model.GithubRepositoryInfo
 import com.example.samplegithub.network.model.RepoReleaseInfo
 import com.example.samplegithub.network.model.Resource
@@ -28,6 +32,7 @@ class GithubRepository @Inject constructor(private val apiService: GithubApiServ
 
     }
 
+
     suspend fun getLatestRelease(releaseURL: String): Resource<RepoReleaseInfo>{
         return try {
             val response = apiService.getLatestRelease(releaseURL)
@@ -41,5 +46,16 @@ class GithubRepository @Inject constructor(private val apiService: GithubApiServ
         }
     }
 
+
+    fun getSearchResults(query: String) =
+        Pager(
+            config = PagingConfig(
+                initialLoadSize = 20,
+                pageSize = 20,
+                maxSize = 100,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { GithubRepoInfoPagingSource(apiService, query) }
+        ).liveData
 
 }
